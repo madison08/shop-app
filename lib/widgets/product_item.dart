@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app_provider/providers/product.dart';
+import 'package:shop_app_provider/providers/product_provider.dart';
 import 'package:shop_app_provider/screens/product_details_screen.dart';
 
 class ProductItem extends StatelessWidget {
@@ -14,27 +17,33 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
           context,
           ProductDetailScreen.routeName,
-          arguments: id,
+          arguments: product.id,
         );
       },
       child: GridTile(
         child: Image.network(
-          imageUrl.toString(),
+          product.imageUrl.toString(),
           fit: BoxFit.cover,
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black.withOpacity(0.4),
-          leading: Icon(
-            Icons.heart_broken,
+          leading: IconButton(
+            icon: Icon(
+                product.isFavorite ? Icons.favorite : Icons.favorite_border),
             color: Colors.red,
+            onPressed: () {
+              print("hello");
+              product.toggleFavoriteStatus();
+            },
           ),
           title: Text(
-            title.toString(),
+            product.title.toString(),
             textAlign: TextAlign.center,
           ),
           trailing: Icon(Icons.shop),

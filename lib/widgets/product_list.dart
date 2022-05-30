@@ -30,10 +30,14 @@ class ProductGrid extends StatelessWidget {
         ),
         itemCount: loadedProoducts.length,
         itemBuilder: (context, index) {
-          return ProductItem(
-              id: loadedProoducts[index].id,
-              title: loadedProoducts[index].title,
-              imageUrl: loadedProoducts[index].imageUrl);
+          return ChangeNotifierProvider.value(
+            value: loadedProoducts[index],
+            child: ProductItem(
+                // id: loadedProoducts[index].id,
+                // title: loadedProoducts[index].title,
+                // imageUrl: loadedProoducts[index].imageUrl,
+                ),
+          );
         });
   }
 }
