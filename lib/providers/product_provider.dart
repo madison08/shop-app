@@ -49,17 +49,21 @@ class Products with ChangeNotifier {
     return [..._items];
   }
 
-  void showFavorite() {
-    _showFavoriteOnly = true;
-
-    notifyListeners();
+  List<Product> get getFovoritesItems {
+    return _items.where((element) => element.isFavorite).toList();
   }
 
-  void showAll() {
-    _showFavoriteOnly = false;
+  // void showFavorite() {
+  //   _showFavoriteOnly = true;
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavoriteOnly = false;
+
+  //   notifyListeners();
+  // }
 
   void addproduct(product) {
     _items.add(product);

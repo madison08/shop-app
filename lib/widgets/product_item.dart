@@ -48,7 +48,7 @@ class ProductItem extends StatelessWidget {
             product.title.toString(),
             textAlign: TextAlign.center,
           ),
-          trailing: Icon(Icons.shop),
+          trailing: Icon(Icons.shopping_cart),
         ),
       ),
     );

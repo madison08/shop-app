@@ -2,16 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app_provider/providers/product.dart';
-import 'package:shop_app_provider/providers/product_provider.dart';
-import 'package:shop_app_provider/widgets/product_list.dart';
+import '../providers/product.dart';
+import '../providers/product_provider.dart';
+import '../widgets/product_list.dart';
 
 enum FilterOptions {
   favorites,
   all,
 }
 
-class ProductScren extends StatelessWidget {
+class ProductScren extends StatefulWidget {
+  @override
+  State<ProductScren> createState() => _ProductScrenState();
+}
+
+class _ProductScrenState extends State<ProductScren> {
+  var _showFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     final productContainer = Provider.of<Products>(context, listen: false);
@@ -21,15 +28,22 @@ class ProductScren extends StatelessWidget {
         actions: [
           PopupMenuButton(
             onSelected: (value) {
-              switch (value) {
-                case FilterOptions.favorites:
-                  productContainer.showFavorite();
-                  print("favorites");
-                  break;
-                case FilterOptions.all:
-                  print("all");
-                  productContainer.showAll();
-              }
+              setState(() {
+                if (value == FilterOptions.favorites) {
+                  _showFavorite = true;
+                } else {
+                  _showFavorite = false;
+                }
+              });
+              // switch (value) {
+              //   case FilterOptions.favorites:
+              //     // productContainer.showFavorite();
+              //     print("favorites");
+              //     break;
+              //   case FilterOptions.all:
+              //     print("all");
+              //     // productContainer.showAll();
+              // }
             },
             icon: Icon(Icons.more_vert),
             itemBuilder: (context) => [
@@ -49,7 +63,7 @@ class ProductScren extends StatelessWidget {
           )
         ],
       ),
-      body: ProductGrid(),
+      body: ProductGrid(_showFavorite),
     );
   }
 }

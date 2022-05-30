@@ -14,9 +14,17 @@ class ProductGrid extends StatelessWidget {
 
   // final List<Product> loadedProoducts;
 
+  bool showFavorite;
+
+  ProductGrid(this.showFavorite);
+
   @override
   Widget build(BuildContext context) {
-    final loadedProoducts = Provider.of<Products>(context).getItems;
+    final loadedProoducts = Provider.of<Products>(context);
+
+    final products = showFavorite
+        ? loadedProoducts.getFovoritesItems
+        : loadedProoducts.getItems;
 
     // print(loadedProoducts[0].id);
 
@@ -28,10 +36,10 @@ class ProductGrid extends StatelessWidget {
           mainAxisSpacing: 15.0,
           crossAxisSpacing: 5.0,
         ),
-        itemCount: loadedProoducts.length,
+        itemCount: products.length,
         itemBuilder: (context, index) {
           return ChangeNotifierProvider.value(
-            value: loadedProoducts[index],
+            value: products[index],
             child: ProductItem(
                 // id: loadedProoducts[index].id,
                 // title: loadedProoducts[index].title,
