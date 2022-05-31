@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_provider/providers/cart.dart';
 import 'package:shop_app_provider/providers/product.dart';
 import 'package:shop_app_provider/providers/product_provider.dart';
 import 'package:shop_app_provider/screens/product_details_screen.dart';
@@ -18,6 +19,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(
@@ -48,7 +50,13 @@ class ProductItem extends StatelessWidget {
             product.title.toString(),
             textAlign: TextAlign.center,
           ),
-          trailing: Icon(Icons.shopping_cart),
+          trailing: IconButton(
+            onPressed: () {
+              print("hello");
+              cart.addItem(product.id, product.price, product.title);
+            },
+            icon: Icon(Icons.shopping_cart),
+          ),
         ),
       ),
     );

@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app_provider/providers/cart.dart';
+import 'package:shop_app_provider/widgets/badge.dart';
 import '../providers/product.dart';
 import '../providers/product_provider.dart';
 import '../widgets/product_list.dart';
@@ -58,9 +60,24 @@ class _ProductScrenState extends State<ProductScren> {
                 child: Text(
                   "Show all",
                 ),
-              )
+              ),
             ],
-          )
+          ),
+          Consumer<Cart>(
+            builder: (_, cartProvider, __) => Badge(
+              child: TextButton(
+                onPressed: () {
+                  print("he");
+                },
+                child: Icon(
+                  Icons.shopping_cart,
+                  size: 24,
+                  color: Colors.white,
+                ),
+              ),
+              value: cartProvider.getItemCount.toString(),
+            ),
+          ),
         ],
       ),
       body: ProductGrid(_showFavorite),
