@@ -23,22 +23,37 @@ class ProductDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('hy'),
-      ),
-      body: Container(
-        height: 200.0,
-        width: MediaQuery.of(context).size.width,
-        // color: Colors.red,
-        child: Text(
-          product.title.toString(),
+        title: Text(
+          product.title,
         ),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(
-            product.imageUrl.toString(),
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: 200.0,
+            width: MediaQuery.of(context).size.width,
+            // color: Colors.red,
+            child: Text(
+              product.title.toString(),
+            ),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                product.imageUrl.toString(),
+              ),
+            )),
           ),
-        )),
+          SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            product.price.toString(),
+          ),
+          Text(
+            product.description.toString(),
+          ),
+        ],
       ),
     );
   }

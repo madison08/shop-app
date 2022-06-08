@@ -67,7 +67,7 @@ class _ProductScrenState extends State<ProductScren> {
             builder: (_, cartProvider, __) => Badge(
               child: TextButton(
                 onPressed: () {
-                  print("he");
+                  Navigator.pushNamed(context, "/cart");
                 },
                 child: Icon(
                   Icons.shopping_cart,
