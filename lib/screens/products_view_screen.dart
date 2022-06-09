@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app_provider/providers/cart.dart';
+import 'package:shop_app_provider/widgets/appDrawer.dart';
 import 'package:shop_app_provider/widgets/badge.dart';
 import '../providers/product.dart';
 import '../providers/product_provider.dart';
@@ -25,6 +26,7 @@ class _ProductScrenState extends State<ProductScren> {
   Widget build(BuildContext context) {
     final productContainer = Provider.of<Products>(context, listen: false);
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text('my shop app'),
         actions: [
