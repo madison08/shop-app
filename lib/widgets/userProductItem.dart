@@ -28,7 +28,7 @@ class UserProductItem extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   print("hello");
-                  Navigator.pushNamed(context, "/edit-product");
+                  Navigator.pushNamed(context, "/edit-product", arguments: id);
                 },
                 icon: Icon(
                   Icons.edit,

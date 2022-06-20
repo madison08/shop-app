@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop_app_provider/providers/product.dart';
+import 'package:shop_app_provider/providers/product_provider.dart';
 
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen({Key? key}) : super(key: key);
@@ -14,18 +16,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  // var _id = '';
-  // var _title = '';
-  // var _description = '';
-  // var _imageUrl = '';
-  // var _price = 0.0;
-
   var editedProduct =
       Product(id: '', title: '', description: '', imageUrl: '', price: 0);
 
   @override
   void initState() {
     _imageUrlFocusNode.addListener(_updateImageurl);
+
+    // editedProduct =
+    //     Product(id: '', title: '', description: '', imageUrl: '', price: 50);
 
     // TODO: implement initState
     super.initState();
@@ -67,6 +66,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
 
     _formKey.currentState?.save();
+
+    Provider.of<Products>(context, listen: false).addproduct(editedProduct);
+    Navigator.of(context).pop();
 
     print(editedProduct.title);
     print(editedProduct.description);
@@ -113,6 +115,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         imageUrl: editedProduct.imageUrl,
                         price: editedProduct.price);
                   },
+                  // initialValue: "mon titre",
                 ),
                 TextFormField(
                   decoration: InputDecoration(
