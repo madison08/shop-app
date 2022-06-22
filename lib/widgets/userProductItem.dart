@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app_provider/providers/product_provider.dart';
 
 class UserProductItem extends StatelessWidget {
-  String id;
+  String? id;
   String productTitle;
   String productUrl;
 
@@ -37,7 +37,7 @@ class UserProductItem extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   print("is delete");
-                  productProvider.deleteProduct(id);
+                  productProvider.deleteProduct(id.toString());
                 },
                 icon: Icon(
                   Icons.delete,
