@@ -69,33 +69,38 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addproduct(Product product) {
-    const url = "https://flutterrev-default-rtdb.firebaseio.com/products.json";
+  Future<void> addproduct(Product product) async {
+    const url = "https://flutterrev-default-rtdb.firebaseio.com/products";
 
-    http.post(
-      Uri.parse(url),
-      body: json.encode({
-        'title': product.title,
-        'description': product.description,
-        'price': product.price,
-        'imageUrl': product.imageUrl,
-        'isFavorite': product.isFavorite,
-      }),
-    );
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+          'isFavorite': product.isFavorite,
+        }),
+      );
 
-    final newProduct = Product(
-      id: DateTime.now().toString(),
-      title: product.title,
-      description: product.description,
-      imageUrl: product.imageUrl,
-      price: product.price,
-    );
+      final newProduct = Product(
+        id: json.decode(response.body)['id'],
+        title: product.title,
+        description: product.description,
+        imageUrl: product.imageUrl,
+        price: product.price,
+      );
 
-    _items.add(newProduct);
-
-    // _items.insert(0, newProduct); ajouter produit au debut de la liste
+      _items.add(newProduct);
+    } catch (err) {
+      print(err);
+      throw err;
+    }
 
     notifyListeners();
+
+    // return Future.value();
   }
 
   Product findById(String id) {
