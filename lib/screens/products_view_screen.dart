@@ -20,6 +20,38 @@ class ProductScren extends StatefulWidget {
 }
 
 class _ProductScrenState extends State<ProductScren> {
+  var _isInit = true;
+
+  @override
+  void initState() {
+    // final res =
+    // Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+    }
+    _isInit = false;
+
+    print("enter in change dependenacie");
+
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  // WidgetsBinding.instance.addPostFrameCallback((_){
+
+  // });
+
+  // WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     // Provider.of<CustomerProvider>(context, listen: false).fetchCustomers();
+  //   });
+
   var _showFavorite = false;
 
   @override
@@ -28,7 +60,7 @@ class _ProductScrenState extends State<ProductScren> {
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
-        title: Text('my shop app'),
+        title: Text('my skrr ✅🔥'),
         actions: [
           PopupMenuButton(
             onSelected: (value) {
