@@ -13,6 +13,10 @@ class UserProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productData = Provider.of<Products>(context);
 
+    Future<void> _refreshProducts(context) async {
+      await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your product"),
@@ -26,19 +30,22 @@ class UserProductsScreen extends StatelessWidget {
         ],
       ),
       drawer: AppDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-            itemCount: productData.getItems.length,
-            itemBuilder: (context, index) {
-              // print("id");
-              // print(productData.getItems[index].id.toString());
-              return UserProductItem(
-                id: productData.getItems[index].id.toString(),
-                productTitle: productData.getItems[index].title,
-                productUrl: productData.getItems[index].imageUrl,
-              );
-            }),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.builder(
+              itemCount: productData.getItems.length,
+              itemBuilder: (context, index) {
+                // print("id");
+                // print(productData.getItems[index].id.toString());
+                return UserProductItem(
+                  id: productData.getItems[index].id.toString(),
+                  productTitle: productData.getItems[index].title,
+                  productUrl: productData.getItems[index].imageUrl,
+                );
+              }),
+        ),
       ),
     );
   }
