@@ -114,7 +114,11 @@ class _ProductScrenState extends State<ProductScren> {
           ),
         ],
       ),
-      body: ProductGrid(_showFavorite),
+      body: Provider.of<Products>(context).productLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductGrid(_showFavorite),
     );
   }
 }

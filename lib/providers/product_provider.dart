@@ -45,6 +45,8 @@ class Products with ChangeNotifier {
 
   var _showFavoriteOnly = false;
 
+  bool productLoading = false;
+
   List<Product> get getItems {
     if (_showFavoriteOnly) {
       return _items.where((element) => element.isFavorite).toList();
@@ -70,6 +72,8 @@ class Products with ChangeNotifier {
   // }
 
   Future<void> fetchAndSetProducts() async {
+    productLoading = true;
+
     const url = 'https://flutterrev-default-rtdb.firebaseio.com/products.json';
 
     try {
@@ -107,6 +111,8 @@ class Products with ChangeNotifier {
       });
 
       _items = loadedData;
+
+      productLoading = false;
 
       notifyListeners();
 
